@@ -18,7 +18,7 @@ jobs:
       matrix:
         ALPINE_VERSION: ["3.20"]
         ROS_DISTRO: ["humble", "jazzy"]
-    uses: alpine-ros/alpine-ros-ci-workflows/.github/workflows/ros2.yaml@support-ros2
+    uses: alpine-ros/alpine-ros-ci-workflows/.github/workflows/ros2.yaml@main
     with:
       enable-bot-comment: true
       alpine-version: ${{ matrix.ALPINE_VERSION }}
