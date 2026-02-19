@@ -1,0 +1,29 @@
+name: release
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: alpine-ros/alpine-ros-ci-workflows/.github/workflows/alpine-ros2-release.yaml@main
+    strategy:
+      fail-fast: false
+      matrix:
+        ROS_DISTRO: ["humble", "jazzy"]
+    with:
+      release-ref: ${{ github.event.release.tag_name }}
+      release-repo-slug: alpine-ros-bot/sample-ros-pkg-release
+      source-branch: main
+      ros-distro: ${{ matrix.ROS_DISTRO }}
+      rosdistro-repo-slug: alpine-ros/rosdistro
+      rosdistro-repo-branch: alpine-custom-apk
+      rosdistro-fork-slug: alpine-ros-bot/rosdistro
+      git-user: alpine-ros-bot
+      git-email: 214657941+alpine-ros-bot@users.noreply.github.com
+      dry-run: false
+    secrets:
+      token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      token-pr: ${{ secrets.PR_GITHUB_TOKEN }}
